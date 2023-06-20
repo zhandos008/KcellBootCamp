@@ -11,6 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
+import androidx.navigation.findNavController
 import kz.kcell.kcellbootcamp.R
 import kz.kcell.kcellbootcamp.databinding.ActivityMainBinding
 import kz.kcell.kcellbootcamp.utils.toast
@@ -35,6 +37,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        Log.i("testZha", "MainActivity")
+
+        binding.searchMovies.setOnClickListener {
+            navController.navigate(
+                R.id.action_moviesFragment_to_searchingScreenFragment
+            )
+        }
     }
 
     private fun askNotificationPermission() {

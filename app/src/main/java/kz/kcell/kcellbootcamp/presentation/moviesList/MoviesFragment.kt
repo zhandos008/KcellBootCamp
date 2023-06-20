@@ -1,11 +1,15 @@
 package kz.kcell.kcellbootcamp.presentation.moviesList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kz.kcell.kcellbootcamp.R
@@ -24,10 +28,12 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         MoviesAdapter(::onClickedMovie)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.movieRecyclerView.adapter = this@MoviesFragment.adapter
         setupObservers()
+
     }
 
     private fun setupObservers() {
@@ -36,7 +42,12 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                 Resource.Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
                     if (!it.data.isNullOrEmpty()) {
+                        Log.i("testZha", it.data.toString())
                         adapter.submitList(it.data)
+                        val recyclerView = binding.movieRecyclerView
+                        recyclerView.adapter = adapter
+                        recyclerView.layoutManager = LinearLayoutManager(this@MoviesFragment.requireContext())
+
                     }
                 }
 
@@ -55,4 +66,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             bundleOf(ARG_MOVIE_ID to movie.id)
         )
     }
+
+
 }
