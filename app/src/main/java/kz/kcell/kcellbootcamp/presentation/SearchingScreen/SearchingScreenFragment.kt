@@ -28,7 +28,6 @@ class SearchingScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchingScreenBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
 
         setupOberve()
@@ -37,7 +36,7 @@ class SearchingScreenFragment : Fragment() {
         viewModel.movies.observe(viewLifecycleOwner) {
 
                 if(it.status == Resource.Status.SUCCESS){
-                    
+
                 }
         }
     }
